@@ -4,18 +4,33 @@
  * and open the template in the editor.
  */
 
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.Document;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -25,10 +40,16 @@ public class MagneticInpectorPersonal extends javax.swing.JFrame {
     
     String opNameField;
     String opLevelField;
+    
     String evaluatedNameField;
     String evaluatedLevelField;
+    
     String comfirmNameField;
     String comfirmLevelField;
+    
+    String costumerNameField;
+    String costumerLevelField;
+    
     
     /**
      * Creates new form MagneticInpectorForm1
@@ -82,7 +103,7 @@ public class MagneticInpectorPersonal extends javax.swing.JFrame {
 
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel1.setText(" Seviye / Level :");
+        jLabel1.setText("Seviye / Level :");
 
         jLabel2.setText("Adı Soyadı / Name Surname :");
 
@@ -116,6 +137,11 @@ public class MagneticInpectorPersonal extends javax.swing.JFrame {
         });
 
         jButton2.setText("PDF olarak Kaydet");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Excel olarak Kaydet");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -259,91 +285,68 @@ public class MagneticInpectorPersonal extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         
-       opNameField = jTextField1.getText();
-       opLevelField = jTextField2.getText();
-       
-       evaluatedNameField = jTextField5.getText();
-       evaluatedLevelField = jTextField6.getText();
-       
-       comfirmNameField = jTextField11.getText();
-       comfirmLevelField = jTextField12.getText();
-       
-       
+        opNameField = jTextField1.getText();
+        opLevelField = jTextField2.getText();
+        
+        evaluatedNameField = jTextField5.getText();
+        evaluatedLevelField = jTextField6.getText();
+        
+        comfirmNameField = jTextField11.getText();
+        comfirmLevelField = jTextField12.getText();
+        
+        costumerNameField = jTextField13.getText();
+        costumerLevelField = jTextField14.getText();
         
         try {
-            Workbook workbook = new HSSFWorkbook();
-            OutputStream os = new FileOutputStream("Dört Deneme.xls");
-            Sheet sheet = workbook.createSheet("Çalışma");
-            
-            Row operatorRow = sheet.createRow(0);
-            Cell operatorCell = operatorRow.createCell(1);
-            operatorCell.setCellValue("Operatör / Operator");
-            
-            Row evaluatedRow = sheet.createRow(0);
-            Cell evaluatedCell = evaluatedRow.createCell(2);
-            evaluatedCell.setCellValue("Değerlendiren / Evaluated By");
-            
-            Row confirmRow = sheet.createRow(0);
-            Cell confirmCell = confirmRow.createCell(3);
-            confirmCell.setCellValue("Onaylayan / Confirmation");
-            
-            Row costumRow = sheet.createRow(0);
-            Cell costumCell = costumRow.createCell(4);
-            costumCell.setCellValue("Müşteri / Costumer");
-            
-            Row personalRow = sheet.createRow(0);
-            Cell personalCell = personalRow.createCell(0);
-            personalCell.setCellValue("Personel Bilgileri / Personal Information");
-            
-            Row nameSurnameRow = sheet.createRow(1);
-            Cell nameSurnameCell = nameSurnameRow.createCell(0);
-            nameSurnameCell.setCellValue("Ad & Soyad / Name & Surname");
-            
-            Row levelRow = sheet.createRow(2);
-            Cell levelCell = levelRow.createCell(0);
-            levelCell.setCellValue("Seviye / Level");
-            
-            Row dateRow = sheet.createRow(3);
-            Cell dateCell = dateRow.createCell(0);
-            levelCell.setCellValue("Tarih / Date");
-            
-            
-            
-                    
-            Row opNameRow = sheet.createRow(1);
-            Cell opNameCell = opNameRow.createCell(1);
-            opNameCell.setCellValue(opNameField);
-            
-            Row opLevelRow = sheet.createRow(1);
-            Cell opLevelCell = opLevelRow.createCell(2);
-            opLevelCell.setCellValue(opLevelField);
-            
-            Row evaNameRow = sheet.createRow(2);
-            Cell evaNameCell = evaNameRow.createCell(1);
-            evaNameCell.setCellValue(evaluatedNameField);
-            
-            Row evaLevelRow = sheet.createRow(2);
-            Cell evaLevelCell = evaLevelRow.createCell(2);
-            evaLevelCell.setCellValue(evaluatedLevelField);
-            
-            Row confNameRow = sheet.createRow(3);
-            Cell confNameCell = confNameRow.createCell(1);
-            confNameCell.setCellValue(comfirmNameField);
-            
-            Row confLevelRow = sheet.createRow(3);
-            Cell confLevelCell = confLevelRow.createCell(2);
-            confLevelCell.setCellValue(comfirmLevelField);
-            
-            
-            workbook.write(os);
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(MagneticInpectorPersonal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(MagneticInpectorPersonal.class.getName()).log(Level.SEVERE, null, ex);
+
+            FileInputStream file = new FileInputStream(new File("/Users/hasanguzelmansur/NetBeansProjects/InspectorDeskop/MagneticReport.xls"));
+
+
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+
+            XSSFSheet sheet = workbook.getSheetAt(0);
+
+            Cell cell = null;
+
+
+
+
+            cell = sheet.getRow(4).getCell(5);
+
+            cell.setCellValue(opNameField);
+
+            cell = sheet.getRow(32).getCell(0);
+
+            cell.setCellValue(opLevelField);
+
+            file.close();
+
+
+
+            FileOutputStream outFile =new FileOutputStream(new File("/Users/hasanguzelmansur/NetBeansProjects/InspectorDeskop/MagneticReport.xls"));
+
+            workbook.write(outFile);
+
+            outFile.close();
+
+
+
+        } catch (FileNotFoundException e) {
+
+            e.printStackTrace();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
         }
+       
         
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
