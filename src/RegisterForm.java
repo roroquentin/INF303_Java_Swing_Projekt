@@ -184,6 +184,9 @@ public class RegisterForm extends javax.swing.JFrame {
        }else{
        JOptionPane.showMessageDialog(null,"Lütfen boş alanları doldurunuz!");
        }
+       
+       this.dispose();
+       new LoginForm().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
