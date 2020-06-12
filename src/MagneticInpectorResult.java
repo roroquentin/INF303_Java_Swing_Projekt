@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -33,6 +34,9 @@ public class MagneticInpectorResult extends javax.swing.JFrame {
     String confirmNameSurname, confirmLevel, confirmDate;
     
     String costumerNameSurname, costumerLevel, costumerDate;
+    
+    int confirmLevelInt;
+    
 
     /**
      * Creates new form MagneticInpectorResult
@@ -596,6 +600,60 @@ public class MagneticInpectorResult extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         
+        confirmLevelInt = Integer.valueOf(jTextField21.getText());
+   
+        if (confirmLevelInt >= 5 ){
+        
+            try {
+
+                FileInputStream file = new FileInputStream(new File("/Users/hasanguzelmansur/NetBeansProjects/InspectorDeskop/MagneticReport.xlsx"));
+
+                XSSFWorkbook wb = new XSSFWorkbook(file);
+
+                XSSFSheet sh = wb.getSheetAt(0);
+
+                Cell cll = null;
+
+                //burası ekipman bilgileri
+
+                cll = sh.getRow(19).getCell(7);
+
+                cll.setCellValue(standardDeviations);
+
+                cll = sh.getRow(20).getCell(7);
+
+                cll.setCellValue(inspectionDates);
+
+                cll = sh.getRow(21).getCell(7);
+
+                cll.setCellValue(descriptionAndAttachments);
+
+
+                file.close();
+
+                FileOutputStream outFile =new FileOutputStream(new File("/Users/hasanguzelmansur/NetBeansProjects/InspectorDeskop/MagneticReport.xlsx"));
+
+                wb.write(outFile);
+
+                outFile.close();
+                
+                JOptionPane.showMessageDialog(null,"Dosyanız Kayıt edildi!");
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+        
+        }else{
+            
+            JOptionPane.showMessageDialog(null,"Seviyeniz bu formu onaylamak için yeterli değildir! \n Lütfen formu onaylamayınız!");
+            
+        }
+     
+        
+        
+        
+        
         
         
         jTextField1.setText("");
@@ -691,28 +749,28 @@ public class MagneticInpectorResult extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    public javax.swing.JTextField jTextField1;
-    public javax.swing.JTextField jTextField10;
-    public javax.swing.JTextField jTextField11;
-    public javax.swing.JTextField jTextField12;
-    public javax.swing.JTextField jTextField13;
-    public javax.swing.JTextField jTextField14;
-    public javax.swing.JTextField jTextField15;
-    public javax.swing.JTextField jTextField16;
-    public javax.swing.JTextField jTextField17;
-    public javax.swing.JTextField jTextField18;
-    public javax.swing.JTextField jTextField19;
-    public javax.swing.JTextField jTextField2;
-    public javax.swing.JTextField jTextField20;
-    public javax.swing.JTextField jTextField21;
-    public javax.swing.JTextField jTextField22;
-    public javax.swing.JTextField jTextField23;
-    public javax.swing.JTextField jTextField24;
-    public javax.swing.JTextField jTextField3;
-    public javax.swing.JTextField jTextField5;
-    public javax.swing.JTextField jTextField6;
-    public javax.swing.JTextField jTextField7;
-    public javax.swing.JTextField jTextField8;
-    public javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
+    private javax.swing.JTextField jTextField12;
+    private javax.swing.JTextField jTextField13;
+    private javax.swing.JTextField jTextField14;
+    private javax.swing.JTextField jTextField15;
+    private javax.swing.JTextField jTextField16;
+    private javax.swing.JTextField jTextField17;
+    private javax.swing.JTextField jTextField18;
+    private javax.swing.JTextField jTextField19;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField20;
+    private javax.swing.JTextField jTextField21;
+    private javax.swing.JTextField jTextField22;
+    private javax.swing.JTextField jTextField23;
+    private javax.swing.JTextField jTextField24;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }
