@@ -6,6 +6,7 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 /**
  *
@@ -20,6 +21,9 @@ public class updateForm extends javax.swing.JFrame {
     public updateForm() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        ImageIcon icon = new ImageIcon(getClass().getResource("icon.png"));
+        setIconImage(icon.getImage());
                
     }
 

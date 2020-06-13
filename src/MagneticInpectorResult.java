@@ -1,8 +1,12 @@
 
+import com.aspose.cells.SaveFormat;
+import com.aspose.cells.Workbook;
+import com.itextpdf.text.Document;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.apache.poi.ss.usermodel.Cell;
@@ -44,6 +48,9 @@ public class MagneticInpectorResult extends javax.swing.JFrame {
     public MagneticInpectorResult() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        ImageIcon icon = new ImageIcon(getClass().getResource("icon.png"));
+        setIconImage(icon.getImage());
     }
 
     /**
@@ -110,6 +117,11 @@ public class MagneticInpectorResult extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Muayene Sonuçları");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         jLabel1.setText("Standarttan Sapmalar ");
@@ -248,6 +260,11 @@ public class MagneticInpectorResult extends javax.swing.JFrame {
 
         jButton5.setForeground(new java.awt.Color(102, 153, 255));
         jButton5.setText("PDF olarak kaydet");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Bilgileri kaydet");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -595,6 +612,74 @@ public class MagneticInpectorResult extends javax.swing.JFrame {
             DatabaseOperation.getDataForTable(jTable1);
         }
         
+        
+        try {
+            
+            FileInputStream file = new FileInputStream(new File("/Users/hasanguzelmansur/NetBeansProjects/InspectorDeskop/MagneticReport.xlsx"));
+            
+            XSSFWorkbook wb = new XSSFWorkbook(file);
+            
+            XSSFSheet sh = wb.getSheetAt(0);
+            
+            Cell cll = null;
+           
+            //burası ekipman bilgileri
+
+            cll = sh.getRow(24).getCell(1);
+
+            cll.setCellValue(pieceNo);
+            
+            cll = sh.getRow(24).getCell(8);
+
+            cll.setCellValue(testLenght);
+            
+            cll = sh.getRow(24).getCell(11);
+
+            cll.setCellValue(weldingProcess);
+            
+            cll = sh.getRow(24).getCell(17);
+
+            cll.setCellValue(thickness);
+            
+            cll = sh.getRow(24).getCell(18);
+
+            cll.setCellValue(diameter);
+            
+            cll = sh.getRow(24).getCell(22);
+
+            cll.setCellValue(defectType);
+            
+            cll = sh.getRow(24).getCell(24);
+
+            cll.setCellValue(defectLoc);
+            
+            cll = sh.getRow(24).getCell(27);
+
+            cll.setCellValue(result);
+
+            file.close();
+
+            FileOutputStream outFile =new FileOutputStream(new File("/Users/hasanguzelmansur/NetBeansProjects/InspectorDeskop/MagneticReport.xlsx"));
+
+            wb.write(outFile);
+
+            outFile.close();
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+        }
+        
+        
+        jTextField5.setText("");
+        jTextField6.setText("");
+        jTextField7.setText("");
+        jTextField8.setText("");
+        jTextField9.setText("");
+        jTextField10.setText("");
+        jTextField11.setText("");
+        jTextField12.setText("");
+        
      
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -602,7 +687,7 @@ public class MagneticInpectorResult extends javax.swing.JFrame {
         
         confirmLevelInt = Integer.valueOf(jTextField21.getText());
    
-        if (confirmLevelInt >= 5 ){
+        if (confirmLevelInt >= 5){
         
             try {
 
@@ -614,7 +699,7 @@ public class MagneticInpectorResult extends javax.swing.JFrame {
 
                 Cell cll = null;
 
-                //burası ekipman bilgileri
+                //burası ekipman bilgilerinin devamı
 
                 cll = sh.getRow(19).getCell(7);
 
@@ -627,7 +712,63 @@ public class MagneticInpectorResult extends javax.swing.JFrame {
                 cll = sh.getRow(21).getCell(7);
 
                 cll.setCellValue(descriptionAndAttachments);
+                
+                //operatör
+                
+                cll = sh.getRow(39).getCell(5);
 
+                cll.setCellValue(operatorNameSurname);
+
+                cll = sh.getRow(40).getCell(5);
+
+                cll.setCellValue(operatorLevel);
+
+                cll = sh.getRow(41).getCell(5);
+
+                cll.setCellValue(operatorDate);
+
+                //değerlendiren
+                
+                cll = sh.getRow(39).getCell(15);
+
+                cll.setCellValue(evalutedNameSurname);
+
+                cll = sh.getRow(40).getCell(15);
+
+                cll.setCellValue(evalutedLevel);
+
+                cll = sh.getRow(41).getCell(15);
+
+                cll.setCellValue(evalutedDate);
+                
+                //onaylayan
+                
+                cll = sh.getRow(39).getCell(20);
+
+                cll.setCellValue(confirmNameSurname);
+
+                cll = sh.getRow(40).getCell(20);
+
+                cll.setCellValue(confirmLevel);
+
+                cll = sh.getRow(41).getCell(20);
+
+                cll.setCellValue(confirmDate);
+                
+                //müşteri
+                
+                cll = sh.getRow(39).getCell(25);
+
+                cll.setCellValue(costumerNameSurname);
+
+                cll = sh.getRow(40).getCell(25);
+
+                cll.setCellValue(costumerLevel);
+
+                cll = sh.getRow(41).getCell(25);
+
+                cll.setCellValue(costumerDate);
+                
 
                 file.close();
 
@@ -651,38 +792,40 @@ public class MagneticInpectorResult extends javax.swing.JFrame {
         }
      
         
-        
-        
-        
-        
-        
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jTextField15.setText("");
-        jTextField14.setText("");
-        jTextField13.setText("");
-        jTextField16.setText("");
-        jTextField17.setText("");
-        jTextField18.setText("");
-        jTextField19.setText("");
-        jTextField20.setText("");
-        jTextField21.setText("");
-        jTextField22.setText("");
-        jTextField23.setText("");
-        jTextField24.setText("");
-        
-        jTextField5.setText("");
-        jTextField6.setText("");
-        jTextField7.setText("");
-        jTextField8.setText("");
-        jTextField9.setText("");
-        jTextField10.setText("");
-        jTextField11.setText("");
-        jTextField12.setText("");
-        
-        
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        
+        String path = null;
+        
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int save = chooser.showOpenDialog(this);
+        if(save == JFileChooser.APPROVE_OPTION){
+            path = chooser.getSelectedFile().getPath();
+        }
+        
+        Document d = new Document();
+        
+        try {
+            
+            Workbook workbook = new Workbook("/Users/hasanguzelmansur/NetBeansProjects/InspectorDeskop/MagneticReport.xlsx");
+            
+            workbook.save(path+"MagneticReport.pdf",SaveFormat.PDF);
+            
+            JOptionPane.showMessageDialog(null,"Dosyanız Kayıt edildi!");
+        
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null,"Bir hata oluştu!");
+            
+        }
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
