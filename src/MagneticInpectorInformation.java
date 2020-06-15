@@ -351,8 +351,13 @@ public class MagneticInpectorInformation extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jComboBox1MouseClicked(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jComboBox1MouseExited(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jComboBox1MousePressed(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -489,13 +494,7 @@ public class MagneticInpectorInformation extends javax.swing.JFrame {
                                 .addGap(83, 83, 83))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(jRadioButton2)
-                                .addGap(76, 76, 76)
-                                .addComponent(jRadioButton1)))
+                        .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2)))
                 .addGap(70, 70, 70))
@@ -503,6 +502,12 @@ public class MagneticInpectorInformation extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel16)
                 .addGap(496, 496, 496))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(jRadioButton2)
+                .addGap(112, 112, 112)
+                .addComponent(jRadioButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -676,7 +681,7 @@ public class MagneticInpectorInformation extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2))
-                .addGap(25, 25, 25)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -930,8 +935,22 @@ public class MagneticInpectorInformation extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField22ActionPerformed
 
-    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jComboBox1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MousePressed
+         String selectedValue = jComboBox1.getSelectedItem().toString();
         
+        jTextField1.setText(selectedValue);
+    }//GEN-LAST:event_jComboBox1MousePressed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
         java.sql.Connection conn = DataBaseConnect.getConnection();
         Statement s;
         ResultSet rs;
@@ -947,6 +966,7 @@ public class MagneticInpectorInformation extends javax.swing.JFrame {
                 
                 String name = rs.getString("form_costumer_name");
                 jComboBox1.addItem(name);
+                
             }
             
             conn.close();
@@ -956,20 +976,7 @@ public class MagneticInpectorInformation extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"İsimlere ulaşamadım!\n" + e);
             
         }
-  
     }//GEN-LAST:event_jComboBox1MouseClicked
-
-    private void jComboBox1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseExited
-       
-        String selectedValue = jComboBox1.getSelectedItem().toString();
-        
-        jTextField1.setText(selectedValue);
-        
-    }//GEN-LAST:event_jComboBox1MouseExited
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
