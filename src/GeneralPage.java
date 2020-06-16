@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 /**
  *
  * @author hasanguzelmansur
@@ -25,6 +28,8 @@ public class GeneralPage extends javax.swing.JFrame implements Runnable {
         
         ImageIcon icon = new ImageIcon(getClass().getResource("icon.png"));
         setIconImage(icon.getImage());
+        
+       
     }
 
     /**
@@ -56,7 +61,7 @@ public class GeneralPage extends javax.swing.JFrame implements Runnable {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Anasayfa");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -255,8 +260,10 @@ public class GeneralPage extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
      this.dispose();
      new MagneticInpectorInformation().setVisible(true);
+     
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
